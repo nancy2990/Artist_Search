@@ -1,0 +1,178 @@
+<!-- Main Content Section -->
+<div class="flex-grow-1 d-flex justify-content-center align-items-start" style="padding-top: 3vh;">
+  <div class="col-10 col-sm-10 col-md-8 position-relative">
+    <form (ngSubmit)="searchArtist()" #searchForm="ngForm">
+      <div class="input-group w-100">
+        <input type="text"
+               class="form-control"
+               placeholder="Please enter an artist name."
+               name="artistName"
+               [(ngModel)]="artistName"
+               required>
+    
+        <button
+          type="submit"  
+          class="btn"
+          [ngClass]="{
+            'btn-search-active': artistName && artistName.trim() !== '',
+            'btn-search-inactive': !artistName || artistName.trim() === ''
+          }">
+          Search
+          <span *ngIf="searchLoading" class="spinner-border spinner-border-sm ms-2"></span>
+        </button>
+    
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="clearSearch()">Clear</button>
+      </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    <div class="search-results-container" *ngIf="artists.length > 0">
+      <div class="scroll-container">
+        <div class="d-flex">
+          <div class="card-container" *ngFor="let artist of artists">
+            <div class="card" 
+              [ngClass]="{'selected': selectedArtistId === artist.artistId}" 
+              (click)="selectArtist(artist.artistId)">
+              <img [src]="artist.image" 
+                   class="card-img-top" 
+                   alt="{{ artist.name }}"
+                   (error)="onImageError($event)">
+              <div class="card-title-overlay">
+                <h5 class="card-title">{{ artist.name }}</h5>
+              </div>
+              <ng-container *ngIf="authService.user$ | async">
+                <button class="favorite-btn position-absolute top-0 end-0 m-2 p-0 border-0"
+                  (click)="toggleFavorite(artist.artistId, $event)">
+                  <i [ngClass]="{'bi-star-fill text-warning': authService.isFavorited(artist.artistId), 'bi-star': !authService.isFavorited(artist.artistId)}" 
+                     class="bi" style="font-size: 1.5rem;"></i>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+    <!-- Artist Details with Tabs -->
+    <div *ngIf="selectedArtistId" class="artist-details mt-4">
+      <ul class="nav d-flex w-100" style="border-bottom: none;">
+        <!-- Artist Info Tab -->
+        <li class="nav-item w-50">
+          <a class="nav-link text-center d-flex justify-content-center align-items-center"
+             [ngClass]="{ 'active-tab': activeTab === 'info' }"
+             (click)="setActiveTab('info')">
+            Artist Info
+          </a>
+        </li>
+        <!-- Artworks Tab -->
+        <li class="nav-item w-50">
+          <a class="nav-link text-center d-flex justify-content-center align-items-center"
+             [ngClass]="{ 'active-tab': activeTab === 'artworks' }"
+             (click)="setActiveTab('artworks')">
+            Artworks
+          </a>
+        </li>
+      </ul>
+
+      <!-- Spinner for Details Loading -->
+      <div *ngIf="detailsLoading" class="text-center mt-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Artist Info Tab -->
+      <div *ngIf="activeTab === 'info' && artistInfo && !detailsLoading" class="mt-3">
+        <h2 class="artist-name" style="display: flex; justify-content: center; align-items: center; white-space: nowrap;">
+          <span>{{ artistInfo.name }}</span>
+          <ng-container *ngIf="authService.user$ | async">
+            <button 
+              class="favorite-btn2 border-0 bg-transparent p-0"
+              style="margin-left: 8px;" 
+              (click)="toggleFavorite(artistInfo.artistId, $event)">
+              <i [ngClass]="{
+                    'bi-star-fill text-warning': authService.isFavorited(artistInfo.artistId),
+                    'bi-star': !authService.isFavorited(artistInfo.artistId)
+                  }"
+                  class="bi"
+                  style="font-size: 1.5rem; color:black;"></i>
+            </button>
+          </ng-container>
+        </h2>
+        
+        <div class="artist-subtitle">
+          {{ artistInfo.nationality }}
+          <span *ngIf="artistInfo.birthday">, {{ artistInfo.birthday }}</span>
+          <span *ngIf="artistInfo.deathday"> – {{ artistInfo.deathday }}</span>
+        </div>
+        <p class="artist-biography" [innerHTML]="artistInfo.biography">
+          {{ artistInfo.biography }}
+        </p>
+        <div class="mt-5" *ngIf="(authService.user$ | async) && similarArtists.length > 0">
+          <h4 class="mb-3">Similar Artists</h4>
+        
+          <div class="scroll-container">
+            <div class="d-flex">
+              <div class="card-container" *ngFor="let artist of similarArtists">
+                <div class="card"
+                     [ngClass]="{'selected': selectedArtistId === artist.artistId}"
+                     (click)="onSimilarArtistClick(artist.artistId)">
+                  <img [src]="artist.image"
+                       class="card-img-top"
+                       alt="{{ artist.name }}"
+                       (error)="onImageError($event)">
+                  <div class="card-title-overlay">
+                    <h5 class="card-title">{{ artist.name }}</h5>
+                  </div>
+                  <ng-container *ngIf="authService.user$ | async">
+                    <button class="favorite-btn position-absolute top-0 end-0 m-2 p-0 border-0"
+                            (click)="toggleFavorite(artist.artistId, $event)">
+                      <i [ngClass]="{
+                        'bi-star-fill text-warning': authService.isFavorited(artist.artistId),
+                        'bi-star': !authService.isFavorited(artist.artistId)
+                      }" class="bi" style="font-size: 1.5rem;"></i>
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Artworks Tab -->
+      <!-- Artworks Tab -->
+      <div *ngIf="activeTab === 'artworks' && !detailsLoading">
+        <div *ngIf="artistArtworks.length === 0" class="alert alert-danger mt-3">
+          No artworks.
+        </div>
+
+        <div *ngIf="artistArtworks.length > 0" class="row mt-3">
+          <div class="col-md-3 mb-4" *ngFor="let artwork of artistArtworks">
+            <div class="artwork-card">
+              <div class="artwork-image-container">
+                <img [src]="artwork.image" class="img-fluid" alt="{{ artwork.title }}" (error)="onImageError($event)">
+              </div>
+              <div class="artwork-details p-2">
+                <h5 class="card-title text-center">
+                  {{ artwork.title }}
+                  {{ artwork.date }}
+                </h5>
+              </div>
+              <button class="nav-link w-100 text-center d-flex justify-content-center align-items-center view-categories"
+                      style="border-radius: 0 !important;"
+                      (click)="viewCategories(artwork)">
+                View Categories 
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

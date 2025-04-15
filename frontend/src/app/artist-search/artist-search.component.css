@@ -1,0 +1,228 @@
+.title {
+  font-size: 24px;
+}
+.flex-grow-1 {
+  min-height: 60px; 
+}
+.nav-buttons button {
+  margin-left: 16px;
+}
+
+button {
+  cursor: pointer;
+}
+.btn-search-active,
+.btn-search-active:active,
+.btn-search-active:focus {
+  background-color: #004080 !important;
+  border-color: #004080 !important;
+  color: #fff;
+  outline: none;
+  box-shadow: none;
+}
+.btn-search-inactive {
+  background-color: rgba(0, 0, 139, 0.5); 
+  border-color: rgba(0, 0, 139, 0.5);
+  color: #fff;
+}
+
+.btn-search-active {
+  background-color: #0455a7; 
+  border-color: #0455a7;
+  color: #fff;
+}
+.input-group {
+  border-radius: 8px;
+  margin-bottom: 4px;
+  width:100%;
+}
+
+input.form-control {
+  border-radius: 8px 0 0 8px;
+  border: 1px solid #ccc;
+  min-width: 0;
+  flex: 1 1 auto; 
+}
+.input-group .btn {
+  flex-shrink: 1;
+  flex-grow: 0;
+  max-width: 100px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 14px;
+}
+input::placeholder {
+  font-size: 14px;
+}
+.alert {
+  padding: 16px;
+  font-size: 16px;
+}
+.col-8.position-relative {
+  position: relative;
+  min-height: auto;
+}
+
+.search-results-container {
+  left: 0;
+  width: 100%;
+  max-height: 400px; 
+  overflow-y: auto; 
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.scroll-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 16px;
+  scrollbar-width: thin;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+}
+
+
+.card-container {
+  flex: 0 0 auto;
+  width: 160px;
+  margin-right: 7px;
+}
+
+.card {
+  height: 240px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #172c42;
+}
+.card:hover {
+  background-color: #004080;
+}
+
+.card.selected {
+  background-color: #004080;
+}
+.card-img-top {
+  object-fit: cover;
+  height: 190px;
+  width: 100%;
+}
+
+.card-title-overlay {
+  color: white;
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5%;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.nav {
+  border-bottom: none; 
+}
+.nav-link {
+  cursor: pointer;
+  color: #004080;
+  font-weight: 500;
+  padding: 12px 24px;
+  width: 100%;  
+  display: block;
+}
+.view-categories:active {
+  background-color: #004080; 
+  color: white;
+  border-radius: 8px; 
+}
+.active-tab {
+  background-color: #004080; 
+  color: white;
+  border-radius: 8px;
+}
+.nav-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.artist-info-content {
+  margin: 1rem;   
+}
+
+.artist-name {
+  font-size: 1.5rem;
+  margin-bottom: 0rem;
+  text-align: center;
+}
+
+.artist-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+
+.artist-biography {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.custom-view-button {
+  background-color: #004080; 
+}
+.no-border-radius {
+  border-radius: 0 !important;
+}
+.artwork-card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.artwork-image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.favorite-btn {
+  position: absolute;   
+  top: 0;
+  right: 0;
+  width: 40px;         
+  height: 40px;
+  border-radius: 50%;   
+  background-color: #004080; 
+  border: 2px solid #fff; 
+  display: flex;         
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;          
+}
+
+.favorite-btn .bi-star {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+
+.favorite-btn .bi-star-fill {
+  color: #ffc107;
+  font-size: 1.2rem;
+}

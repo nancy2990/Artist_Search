@@ -1,0 +1,40 @@
+<div class="favorites-container">
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center mt-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- No favorites message -->
+  <div *ngIf="!favorites.length && !loading" class="alert alert-danger mt-3">
+    No favorite artists.
+  </div>
+
+  <!-- Favorites Card Layout -->
+  <div class="row g-3" *ngIf="!loading && favorites.length > 0">
+    <div class="col-md-4 col-sm-6" *ngFor="let fav of favorites" (click)="goToArtistDetails(fav.artistId, $event)">
+      <div class="favorite-card position-relative" [style.backgroundImage]="'url(' + (fav.image || '../../assets/artsy_logo.svg') + ')'">
+        <div class="overlay">
+          <div class="top-left">
+            <h5 class="artist-name">{{ fav.name }}</h5>
+            <p class="dates" *ngIf="fav.birthday || fav.deathday">
+              <span *ngIf="fav.birthday">{{ fav.birthday }}</span>
+              <span *ngIf="fav.deathday"> - {{ fav.deathday }}</span>
+            </p>
+            <p class="nationality" *ngIf="fav.nationality">{{ fav.nationality }}</p>
+          </div>
+          <div class="bottom-row">
+            <div class="bottom-left">
+              <p class="time-ago">{{ timeSince(fav.addedAt) }} ago</p>
+            </div>
+            <div class="bottom-right">
+              <a href="#" (click)="removeFavorite(fav.artistId, $event)">Remove</a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

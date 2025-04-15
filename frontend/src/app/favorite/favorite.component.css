@@ -1,0 +1,72 @@
+.favorites-container {
+  padding: 20px;
+  max-width: 1000px; 
+  margin: 0 auto;     
+}
+
+.favorite-card {
+  height: 150px;              /* 根据需要调整高度 */
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  color: #fff;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.top-left {
+  text-align: left;
+}
+
+.top-left .artist-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.top-left .dates,
+.top-left .nationality {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.bottom-left, 
+.bottom-right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.bottom-right a {
+  margin: 0; 
+  line-height: 1; 
+}
+.bottom-link {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px solid #ffffff;
+}

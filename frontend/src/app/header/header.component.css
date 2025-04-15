@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  flex-wrap: nowrap;
+  background-color:#f0f0f0;
+}
+
+  .header .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .active-route {
+    background-color: #004080; 
+    color: #ffffff!important;           
+  }
+ 
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+  .btn-rounded {
+    border-radius: 10px;
+  }
+  .btn.dropdown-toggle {
+    white-space: nowrap;
+  }
+  

@@ -1,0 +1,48 @@
+<div class="modal fade" id="categoriesModal" tabindex="-1" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Title Section -->
+        <div class="modal-header">
+          <div class="d-flex align-items-center">
+            <img [src]="selectedArtwork?.image" alt="Artwork Thumbnail" class="img-thumbnail me-3" style="width: 80px; height: auto;" (error)="onImageError($event)">
+            <div>
+              <p class="modal-title" id="categoriesModalLabel">{{ selectedArtwork?.title }}</p>
+              <p class="text-muted m-0">{{ selectedArtwork?.date }}</p>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <hr class="m-0" />
+  
+        <!-- Content Section -->
+        <div class="modal-body">
+          <!-- Loading Spinner -->
+          <div *ngIf="categoriesLoading" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <!-- Categories List -->
+          <div *ngIf="!categoriesLoading && (categories && categories.length > 0)" class="row">
+            <div class="col-md-3 mb-3" *ngFor="let category of categories">
+              <div class="card h-100">
+                <img [src]="category.thumbnail" class="card-img-top" alt="{{ category.name }}" (error)="onImageError($event)">
+                <div class="card-body">
+                  <p class="card-text text-center">{{ category.name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- No Categories Message -->
+          <div *ngIf="!categoriesLoading && categories">
+            <div *ngIf="categories.length === 0" class="alert alert-danger mt-3">
+                No categories.
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,7 @@
+<div class="notification-stack position-fixed top-0 end-0 p-3 mt-5" style="z-index: 1050;">
+    <div *ngFor="let note of notifications" class="alert alert-{{note.type}} alert-dismissible fade show mb-2 shadow" role="alert">
+      {{ note.message }}
+      <button type="button" class="btn-close" (click)="dismiss(note.id)"></button>
+    </div>
+  </div>
+  
